@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/loginform/static/css/main.226f8630.css",
+    "main.js": "/loginform/static/js/main.5cb8ed9b.js",
+    "static/js/787.4e892c68.chunk.js": "/loginform/static/js/787.4e892c68.chunk.js",
+    "index.html": "/loginform/index.html",
+    "main.226f8630.css.map": "/loginform/static/css/main.226f8630.css.map",
+    "main.5cb8ed9b.js.map": "/loginform/static/js/main.5cb8ed9b.js.map",
+    "787.4e892c68.chunk.js.map": "/loginform/static/js/787.4e892c68.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.226f8630.css",
+    "static/js/main.5cb8ed9b.js"
+  ]
+}
