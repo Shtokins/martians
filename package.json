@@ -2,7 +2,7 @@
   "name": "martians",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Shtokins.github.io/loginform",
+  "homepage": "https://shtokins.github.io/martians",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
