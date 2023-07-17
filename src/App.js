@@ -48,6 +48,13 @@ function App() {
     passwordHiddenError ||
     loading;
 
+  const checkErrors = () => {
+    if (submitDisabled) {
+      if (checkEmailError) checkEmailError();
+      if (checkPasswordError) checkPasswordError();
+    }
+  };
+
   const keyDownHandler = (e, checkError) => {
     const {
       target: { name },
@@ -103,8 +110,11 @@ function App() {
           />
           {passwordError ? <div className="alarm">{passwordError}</div> : null}
         </div>
+
         <button onClick={login} disabled={submitDisabled}>
-          Login
+          <div className="button-block" onClick={() => checkErrors()}>
+            Login
+          </div>
         </button>
       </div>
     </div>
