@@ -30,8 +30,13 @@ export const useValidation = ({ current: inputField }) => {
       });
     }
   }, [inputField]);
+  const checkError = () => {
+    if (!text && hiddenError) {
+      setText(VALIDATION_ERRORS[name]);
+    }
+  };
 
-  if (!inputField) return false;
+  if (!inputField) return { hiddenError, text: "", checkError };
   const {
     validity: { valid },
     name
@@ -42,12 +47,6 @@ export const useValidation = ({ current: inputField }) => {
   else if (hiddenError && wasted.current && !text)
     setText(VALIDATION_ERRORS[name]);
   if (text && !hiddenError) setText(null);
-
-  const checkError = () => {
-    if (!text && hiddenError) {
-      setText(VALIDATION_ERRORS[name]);
-    }
-  };
 
   return { hiddenError, text, checkError };
 };

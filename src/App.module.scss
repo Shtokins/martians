@@ -1,0 +1,73 @@
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.appHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  button {
+    height: 32px;
+    font-size: 18px;
+    color: #fff;
+    background-color: rgb(61, 61, 247);
+    border: none;
+    border-radius: 6px;
+    padding: 0 12px;
+    transition: all 0.2s;
+    margin-top: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(95, 95, 247);
+    }
+
+    &:active {
+      background-color: rgb(124, 124, 243);
+    }
+
+    &:focus {
+      border: none;
+      background-color: rgb(95, 95, 247);
+    }
+
+    &:disabled {
+      border: none;
+      background-color: silver;
+      cursor: not-allowed;
+    }
+  }
+
+  .spin {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: conic-gradient(#0000 10%, #474bff);
+    mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+    animation: login-spin 1s infinite linear;
+    position: absolute;
+    top: -60px;
+    left: calc(50% - 28px);
+  }
+
+  @keyframes login-spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}

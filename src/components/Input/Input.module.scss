@@ -1,0 +1,34 @@
+.inputBlock {
+  width: 280px;
+  margin: 20px;
+  position: relative;
+
+  input {
+    height: 32px;
+    width: 260px;
+    border-color: #403697;
+    outline-color: #878bff;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 16px;
+
+    &:hover {
+      box-shadow: 0 0 5px rgb(144, 144, 255);
+    }
+
+    &:focus {
+      border-color: rgb(144, 144, 255);
+      box-shadow: 0 0 5px rgb(144, 144, 255);
+    }
+  }
+
+  .alarm {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 12px;
+    color: rgb(252, 79, 79);
+    position: absolute;
+    bottom: -14px;
+    left: 6px;
+  }
+}

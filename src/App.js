@@ -1,121 +1,63 @@
-import { useState, useRef } from "react";
-import { useValidation } from "./hooks/useValidation";
+import { useState } from "react";
+import Input from "./components/Input/Input";
+import styles from "./App.module.scss";
+import MessageBlock from "./components/MessageBlock/MessageBlock";
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
-  const emailField = useRef();
-  const passwordField = useRef();
-  const {
-    hiddenError: emailHiddenError,
-    text: emailError,
-    checkError: checkEmailError
-  } = useValidation(emailField);
-  const {
-    hiddenError: passwordHiddenError,
-    checkError: checkPasswordError,
-    text: passwordError
-  } = useValidation(passwordField);
+  const [requestSuccess, setRequestSuccess] = useState(null);
+  const { email, password } = form;
 
   const login = async () => {
     setLoading(true);
+    setRequestSuccess(null);
     try {
       await fetch("https://dummyjson.com/test")
         .then(res => res.json())
         .then(console.log);
       setLoading(false);
+      setRequestSuccess(true);
     } catch (e) {
       console.error("API REQUEST ERROR: ", e.message);
       setLoading(false);
+      setRequestSuccess(false);
     }
   };
 
-  const handleChange = e => {
-    const {
-      target: { value, name }
-    } = e;
-    const setValue = name === "email" ? setEmail : setPassword;
-    setValue(value);
+  const handleChange = (value, name) => {
+    setForm({ ...form, [name]: value });
   };
 
-  const submitDisabled =
-    !email ||
-    !password ||
-    emailError ||
-    passwordError ||
-    emailHiddenError ||
-    passwordHiddenError ||
-    loading;
-
-  const checkErrors = () => {
-    if (submitDisabled) {
-      if (checkEmailError) checkEmailError();
-      if (checkPasswordError) checkPasswordError();
-    }
-  };
-
-  const keyDownHandler = (e, checkError) => {
-    const {
-      target: { name },
-      keyCode
-    } = e;
-
-    if (keyCode === 13) {
-      if (name === "email") {
-        if (!emailHiddenError && email) {
-          if (!password || passwordHiddenError) {
-            passwordField.current.focus();
-          } else {
-            login();
-          }
-        } else checkError();
-      } else {
-        if (!passwordHiddenError && !emailHiddenError && password) {
-          login();
-        } else checkError();
-      }
-    }
-  };
-
+  const submitDisabled = !email || !password || loading;
   return (
-    <div className="app">
-      <header className="app-header">You Brand LLC</header>
-      <div className="login-form">
-        {loading ? <div className="spin" /> : null}
-        <div className="inputBlock">
-          <input
-            id="emailInput"
-            name="email"
-            type="email"
-            onChange={handleChange}
-            ref={emailField}
-            onKeyDown={e => keyDownHandler(e, checkEmailError)}
-            value={email}
-            placeholder="Email"
-          />
-          {emailError ? <div className="alarm">{emailError}</div> : null}
-        </div>
-        <div className="inputBlock">
-          <input
-            type="password"
-            name="password"
-            id="pwdInput"
-            onChange={handleChange}
-            ref={passwordField}
-            onKeyDown={e => keyDownHandler(e, checkPasswordError)}
-            value={password}
-            minLength={3}
-            placeholder="Password"
-          />
-          {passwordError ? <div className="alarm">{passwordError}</div> : null}
-        </div>
+    <div className={styles.app}>
+      <header className={styles.appHeader}>You Brand LLC</header>
+      <div className={styles.loginForm}>
+        {loading ? <div className={styles.spin} /> : null}
+        <Input
+          formValue={email}
+          onFormChange={handleChange}
+          login={login}
+          placeholder="Email"
+          name="email"
+          type="email"
+        />
+        <Input
+          formValue={password}
+          onFormChange={handleChange}
+          login={login}
+          placeholder="Password"
+          name="password"
+          type="password"
+          validation={{ minLength: 3 }}
+        />
 
-        <button onClick={login} disabled={submitDisabled}>
-          <div className="button-block" onClick={() => checkErrors()}>
-            Login
-          </div>
+        <button disabled={submitDisabled} onClick={login}>
+          Login
         </button>
+
+        <MessageBlock requestSuccess={requestSuccess} />
       </div>
     </div>
   );
